@@ -25,7 +25,7 @@ def call(body) {
         agent any
         options {
             //timeout(time: 10 )
-            timeout(time: body.timeout )
+            timeout(time: config.timeout )
     
         }
 /* No enviroment in shared Global Library    
@@ -60,7 +60,7 @@ def call(body) {
     
     */
 
-                    dir(body.directory) {
+                    dir(config.directory) {
                         // testing
                         sh "ls"
                         sh "pwd"
