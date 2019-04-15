@@ -16,7 +16,6 @@ def call(body) {
   environment {
     ARTIFACT="${JOB_BASE_NAME}-${BUILD_NUMBER}.zip"
     NPM_CONFIG_USERCONFIG='/var/lib/jenkins/.npmrc.nexus'
-    NEXUS_URL=config.nexus_url
   }
      
     stages {
@@ -24,6 +23,7 @@ def call(body) {
       stage("Clean workspace") {
         steps {
           cleanWs() 
+          println config.nexus_url
         }
       }
        
