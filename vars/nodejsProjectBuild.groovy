@@ -19,7 +19,6 @@ def call(body) {
     body.resolveStrategy = Closure.DELEGATE_FIRST
     body.delegate = config
     body()
-// def call(Map pipelineParams) {
 
     pipeline {
         agent any
@@ -103,4 +102,5 @@ def call(body) {
 
         }
     }
+}
 }
