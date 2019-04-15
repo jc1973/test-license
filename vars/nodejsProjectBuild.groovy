@@ -47,7 +47,7 @@ def call(body) {
     
             stage("Clean workspace") {
               steps {
-                cleanWs() - deletes sonar properties file
+                cleanWs() 
               }
             }
     
