@@ -21,12 +21,34 @@ data = JSON.parse(File.read(state_file))
 
 puts
 
-data['modules'][-1]['resources'].each_key do |res_key|
-  if ( id == '' || id == res_key )
-    puts '['.green + res_key.green + '][primary][id]'.green
-    puts data['modules'][-1]['resources'][res_key]['primary']['id'].cyan
+
+
+data['modules'].each_index do |ele|
+#  puts data['modules'].count
+#  puts ele.to_s
+
+  data['modules'][ele]['resources'].each_key do |key|
+    if ( id == '' || id == key )
+      puts '['.green + key.green + '][primary][id]'.green
+      puts data['modules'][ele]['resources'][key]['primary']['id'].cyan
+    end
+    if ( id == key )
+      puts JSON.pretty_generate(data['modules'][ele]['resources'][key]).magenta
+    end
   end
+
+
 end
+
+# data['modules'][-1]['outputs'].each_key do |key|
+#   if ( id == '' || id == key )
+#     puts '['.green + key.green + '][primary][id]'.green
+#     puts data['modules'][-1]['resources'][key]['primary']['id'].cyan
+#   end
+#   if ( id == key )
+#     puts JSON.pretty_generate(data['modules'][-1]['resources'][key]).magenta
+#   end
+# end
 
 puts 
 
