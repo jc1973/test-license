@@ -41,6 +41,7 @@ def call(body) {
             // NEXUS_CREDS = credentials('cfdbdb68-d82f-4818-9292-28881c4560db')
         }
 */
+    steps {
     
         stages {
     
@@ -102,5 +103,6 @@ def call(body) {
 
         }
     }
+}
 }
 }
