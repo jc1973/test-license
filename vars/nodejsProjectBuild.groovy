@@ -11,8 +11,13 @@ def call(body) {
     agent any
     options {
       timeout(time: config.timeout )
-       
     }
+
+  environment {
+    ARTIFACT="${JOB_BASE_NAME}-${BUILD_NUMBER}.zip"
+    NPM_CONFIG_USERCONFIG='/var/lib/jenkins/.npmrc.nexus'
+    NEXUS_URL=config.nexus_url
+  }
      
     stages {
        
