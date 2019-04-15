@@ -44,7 +44,7 @@ def call(body) {
             // testing
             sh "ls"
             sh "pwd"
-            sh 'jenkins variables'
+            sh 'echo #### jenkins variables ###'
             sh 'printenv'
             sh 'echo ### Environment Variables:'
             sh 'env'
