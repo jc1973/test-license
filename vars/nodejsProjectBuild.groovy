@@ -44,6 +44,10 @@ def call(body) {
             // testing
             sh "ls"
             sh "pwd"
+            sh 'jenkins variables'
+            sh 'printenv'
+            sh 'echo ### Environment Variables:'
+            sh 'env'
             // nodejs(nodeJSInstallationName: body.nodeJSVersion) {
               //   sh "npm test"
             // }
