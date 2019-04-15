@@ -1,0 +1,32 @@
+#!/usr/bin/env ruby
+
+require 'json'
+require 'colorize'
+
+id =''
+state_file = ARGV[0]
+id = ARGV[1] if ARGV[1]
+
+# puts 'state file: ' + state_file
+# puts 'id to find: ' + id
+
+unless File.file?(state_file)
+  puts 'no file found: ' + state_file
+  puts 'Usage: terrorm_get_ids <statefile> <resource>'
+end
+
+data = JSON.parse(File.read(state_file))
+# puts data['modules'].class.to_s
+# puts data['modules'].length.to_s
+
+puts
+
+data['modules'][-1]['resources'].each_key do |res_key|
+  if ( id == '' || id == res_key )
+    puts '['.green + res_key.green + '][primary][id]'.green
+    puts data['modules'][-1]['resources'][res_key]['primary']['id'].cyan
+  end
+end
+
+puts 
+
