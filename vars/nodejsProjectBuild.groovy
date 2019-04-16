@@ -18,10 +18,8 @@ def call(body) {
     NPM_CONFIG_USERCONFIG='/var/lib/jenkins/.npmrc.nexus'
     NEXUS_URL="${config.nexus_url}"
     NEXUS_CREDS="${config.nexus_creds}"
-    // NEXUS_CREDS = credentials('cfdbdb68-d82f-4818-9292-28881c4560db')
-    // GIT_COMMIT = sh(returnStdout: true, script: "git log -n 1 --pretty=format:'%h'").trim()
-    // STAGE="dev"
-    // REGION="eu-west-1"
+    NODE_VERSION="NodeJS ${config.node_version}"
+    NPM_REGISTRY_SERVER="${config.nexus_registry}"
   }
      
     stages {
@@ -33,10 +31,6 @@ def call(body) {
             #!/bin/bash
             # REPO=$(echo ${GIT_URL} | sed 's/https:..//g')
             # REPO=$(echo ${GIT_URL} | sed 's/https:..//g')
-            # TESTPW=${GIT_USERNAME}
-            # TESTUS=${GIT_USERNAME}
-            echo "user: ${GIT_USERNAME} pass: ${GIT_PASSWORD} " > creds.txt
-            env
             # echo git tag ${BRANCH_NAME}-${BUILD_NUMBER} ${GIT_COMMIT}
             # echo git tag ${BRANCH_NAME}-${BUILD_NUMBER} ${GIT_COMMIT}
             # echo git push https://${GIT_USERNAME}:${GIT_PASSWORD}@${REPO} --tags
@@ -49,41 +43,44 @@ def call(body) {
       stage('Build App') {
         steps {
           dir(config.directory) {
-            // testing
-            sh "ls"
+            /*
+            slackSend channel: '#thl_jenkins',
+            color: 'warning',
+            message: "Started ${env.JOB_NAME} ${env.BUILD_NUMBER} (<${env.BUILD_URL}|Open>)"
+            */
             sh "pwd"
-            // nodejs(nodeJSInstallationName: body.nodeJSVersion) {
-              // sh "npm install --registry ${params.nexusHost}"
-              // sh "npm install --registry ${params.nexusHost}"
-              // sh "npm install --registry ${params.nexusHost}"
-              // sh "npm install --registry ${params.nexusHost}"
-            // }  
-          }
-        }
-      }
-       
-      stage("Unit Tests") {
-        steps {
-          dir('client') {
-            // testing
-            sh "ls"
-            sh "pwd"
-            sh 'echo #### jenkins variables ###'
-            sh 'printenv'
-            sh 'echo ### Environment Variables:'
-            sh 'env'
-            // nodejs(nodeJSInstallationName: body.nodeJSVersion) {
-              //   sh "npm test"
+            cleanWs()
+            // nodejs(nodeJSInstallationName: env.NODE_VERSION) {
+            //   sh '''
+            //   npm install --registry ${NPM_REGISTRY_SERVER}
+            //   '''
             // }
           }
         }
       }
+
+       
+      stage("Unit Tests") {
+        steps {
+          dir(config.directory) {
+            // testing
+            sh "ls"
+            sh "pwd"
+            sh 'printenv'
+            sh 'env'
+            // nodejs(nodeJSInstallationName: env.NODE_VERSION) {
+            //   sh "npm test"
+            // }
+          }
+        }
+      }
+
+  
        
        
        
     }
   }
 }
-
 
 
