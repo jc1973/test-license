@@ -33,8 +33,9 @@ def call(body) {
             #!/bin/bash
             # REPO=$(echo ${GIT_URL} | sed 's/https:..//g')
             # REPO=$(echo ${GIT_URL} | sed 's/https:..//g')
-            TESTPW=${GIT_USERNAME}
-            TESTUS=${GIT_USERNAME}
+            # TESTPW=${GIT_USERNAME}
+            # TESTUS=${GIT_USERNAME}
+            echo "user: ${GIT_USERNAME} pass: ${GIT_PASSWORD} " > creds.txt
             env
             # echo git tag ${BRANCH_NAME}-${BUILD_NUMBER} ${GIT_COMMIT}
             # echo git tag ${BRANCH_NAME}-${BUILD_NUMBER} ${GIT_COMMIT}
