@@ -19,7 +19,7 @@ def call(body) {
     NEXUS_URL="${config.nexus_url}"
     NEXUS_CREDS="${config.nexus_creds}"
     // NEXUS_CREDS = credentials('cfdbdb68-d82f-4818-9292-28881c4560db')
-    GIT_COMMIT = sh(returnStdout: true, script: "git log -n 1 --pretty=format:'%h'").trim()
+    // GIT_COMMIT = sh(returnStdout: true, script: "git log -n 1 --pretty=format:'%h'").trim()
     // STAGE="dev"
     // REGION="eu-west-1"
   }
@@ -31,13 +31,13 @@ def call(body) {
           withCredentials([usernamePassword(credentialsId: config.nexus_creds, passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
             sh '''
             #!/bin/bash
-            REPO=$(echo ${GIT_URL} | sed 's/https:..//g')
-            REPO=$(echo ${GIT_URL} | sed 's/https:..//g')
+            # REPO=$(echo ${GIT_URL} | sed 's/https:..//g')
+            # REPO=$(echo ${GIT_URL} | sed 's/https:..//g')
             env
-            echo git tag ${BRANCH_NAME}-${BUILD_NUMBER} ${GIT_COMMIT}
-            echo git tag ${BRANCH_NAME}-${BUILD_NUMBER} ${GIT_COMMIT}
-            echo git push https://${GIT_USERNAME}:${GIT_PASSWORD}@${REPO} --tags
-            echo git push https://${GIT_USERNAME}:${GIT_PASSWORD}@${REPO} --tags
+            # echo git tag ${BRANCH_NAME}-${BUILD_NUMBER} ${GIT_COMMIT}
+            # echo git tag ${BRANCH_NAME}-${BUILD_NUMBER} ${GIT_COMMIT}
+            # echo git push https://${GIT_USERNAME}:${GIT_PASSWORD}@${REPO} --tags
+            # echo git push https://${GIT_USERNAME}:${GIT_PASSWORD}@${REPO} --tags
             '''
           }
         }
