@@ -93,5 +93,3 @@ def checkNullDirectory(directory) {
   }
   return directory
 }  
-  
-}
