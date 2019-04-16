@@ -17,17 +17,32 @@ def call(body) {
     ARTIFACT="${JOB_BASE_NAME}-${BUILD_NUMBER}.zip"
     NPM_CONFIG_USERCONFIG='/var/lib/jenkins/.npmrc.nexus'
     NEXUS_URL="${config.nexus_url}"
+    NEXUS_CREDS = credentials(config.nexus_creds)
+    // NEXUS_CREDS = credentials('cfdbdb68-d82f-4818-9292-28881c4560db')
+    GIT_COMMIT = sh(returnStdout: true, script: "git log -n 1 --pretty=format:'%h'").trim()
+    // STAGE="dev"
+    // REGION="eu-west-1"
   }
      
     stages {
        
-      stage("Clean workspace") {
+      stage('Tag commit') {
         steps {
-          cleanWs() 
-          println config.nexus_url
+          withCredentials([usernamePassword(credentialsId: config.nexus_creds, passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
+            sh '''
+            #!/bin/bash
+            REPO=$(echo ${GIT_URL} | sed 's/https:..//g')
+            REPO=$(echo ${GIT_URL} | sed 's/https:..//g')
+            env
+            echo git tag ${BRANCH_NAME}-${BUILD_NUMBER} ${GIT_COMMIT}
+            echo git tag ${BRANCH_NAME}-${BUILD_NUMBER} ${GIT_COMMIT}
+            echo git push https://${GIT_USERNAME}:${GIT_PASSWORD}@${REPO} --tags
+            echo git push https://${GIT_USERNAME}:${GIT_PASSWORD}@${REPO} --tags
+            '''
+          }
         }
       }
-       
+
       stage('Build App') {
         steps {
           dir(config.directory) {
@@ -66,3 +81,6 @@ def call(body) {
     }
   }
 }
+
+
+
