@@ -20,6 +20,7 @@ def call(body) {
     NEXUS_CREDS="${config.nexus_creds}"
     NODE_VERSION="NodeJS ${config.node_version}"
     NPM_REGISTRY_SERVER="${config.nexus_registry}"
+    DIRECTORY=checkNullDirectory(config.directory)
   }
      
     stages {
@@ -42,7 +43,7 @@ def call(body) {
 
       stage('Build App') {
         steps {
-          dir(config.directory) {
+          dir(env.DIRECTORY) {
             /*
             slackSend channel: '#thl_jenkins',
             color: 'warning',
@@ -62,7 +63,7 @@ def call(body) {
        
       stage("Unit Tests") {
         steps {
-          dir(config.directory) {
+          dir(env.DIRECTORY) {
             // testing
             sh "ls"
             sh "pwd"
@@ -84,3 +85,13 @@ def call(body) {
 }
 
 
+
+def checkNullDirectory(directory) {
+  if  (directory) {
+  } else {
+  directory = '.'
+  }
+  return directory
+}  
+  
+}
