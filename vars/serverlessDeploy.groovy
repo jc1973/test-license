@@ -9,7 +9,7 @@ def call(body) {
   pipeline {
       agent any
       parameters {
-          choice(name: 'Environment', choices: [ config.environments ], description: 'Choose environment')
+          choice(name: 'Environment', choices:  config.environments , description: 'Choose environment')
           string(name: 'Version', defaultValue: '', description: 'Enter version to release, eg. "thl-cms-content-api-${version}.zip"')
       }
   
