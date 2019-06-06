@@ -29,7 +29,7 @@ def call(body) {
      
     stages {
        
-      stage('Tag commit') {
+      stage('Tag commit - testing') {
         steps {
           withCredentials([usernamePassword(credentialsId: config.nexus_creds, passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
             sh '''
