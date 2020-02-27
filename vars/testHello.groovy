@@ -1,6 +1,6 @@
 #!/usr/bin/env groovy
 
 
-def testHello() {
+def call() {
   return 'hello'
 }

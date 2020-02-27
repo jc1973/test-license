@@ -1,5 +1,5 @@
 #!/usr/bin/env groovy
 
-def testGoodby() {
+def call() {
   return 'see ya'
 }
